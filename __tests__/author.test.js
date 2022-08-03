@@ -47,6 +47,16 @@ describe('backend-express-template routes', () => {
     ]);
   });
 
+  it.skip('#GET /should return an author by id', async () => {
+    const res = await request(app).get('/authors/1');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({ id: '1',
+      name: 'Brian Thomas',
+      dob: 1892,
+      pob: 'Toronto, Canada'
+    });
+  });
+
   it('#POST /should add a new author', async () => {
     
     const newAuthor = {
@@ -55,7 +65,7 @@ describe('backend-express-template routes', () => {
       pob: 'Bogota, Columbia'
     };
 
-    const res = await (await request(app).post('/authors').send(newAuthor));
+    const res = await request(app).post('/authors').send(newAuthor);
     expect(res.status).toBe(200);
     expect(res.body).toEqual({
       id: expect.any(String),

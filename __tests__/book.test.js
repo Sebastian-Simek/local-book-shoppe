@@ -17,6 +17,22 @@ describe('backend-express-template routes', () => {
     expect(gondor).toHaveProperty('released');
   });
 
+  it('#POST /should add a new book', async () => {
+
+    const newBook = {
+      title: 'Bananas',
+      released: 1999
+    };
+
+    const res = await request(app).post('/books').send(newBook);
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({
+      id: expect.any(String),
+      ...newBook,
+    });
+
+  });
+
   afterAll(() => {
     pool.end();
   });
