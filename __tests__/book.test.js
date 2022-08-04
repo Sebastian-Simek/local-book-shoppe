@@ -17,6 +17,20 @@ describe('backend-express-template routes', () => {
     expect(gondor).toHaveProperty('released');
   });
 
+  it('#GET books/:id should return a book by id', async () => {
+    const res = await request(app).get('/books/1');
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveProperty('id', '1');
+    expect(res.body).toHaveProperty('title', 'Straight Outa Gondor');
+    expect(res.body).toHaveProperty('released', 2015);
+    expect(res.body.authors[0]).toHaveProperty('id');
+    expect(res.body.authors[0]).toHaveProperty('name');
+    expect(res.body.authors[0]).toHaveProperty('dob');
+    expect(res.body.authors[0]).toHaveProperty('pob');
+  });
+
+
+
   it('#POST /should add a new book', async () => {
 
     const newBook = {
