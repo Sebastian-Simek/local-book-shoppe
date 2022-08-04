@@ -47,14 +47,16 @@ describe('backend-express-template routes', () => {
     ]);
   });
 
-  it.skip('#GET /should return an author by id', async () => {
+  it('#GET authors/:id should return an author by id', async () => {
     const res = await request(app).get('/authors/1');
     expect(res.status).toBe(200);
-    expect(res.body).toEqual({ id: '1',
-      name: 'Brian Thomas',
-      dob: 1892,
-      pob: 'Toronto, Canada'
-    });
+    expect(res.body).toHaveProperty('id', '1');
+    expect(res.body).toHaveProperty('name', 'Brian Thomas');
+    expect(res.body).toHaveProperty('dob', 1892);
+    expect(res.body).toHaveProperty('pob', 'Toronto, Canada');
+    expect(res.body.books[0]).toHaveProperty('id');
+    expect(res.body.books[0]).toHaveProperty('title');
+    expect(res.body.books[0]).toHaveProperty('released');
   });
 
   it('#POST /should add a new author', async () => {
